@@ -2,6 +2,8 @@ variable "hcloud_token" {
   description = "Hetzner Cloud API Token."
   type        = string
   sensitive   = true
+  # FIXME: can we get by without the token? I think it's only needed for the autoscaler
+  default     = ""
 }
 
 variable "ssh_port" {
