@@ -147,6 +147,7 @@ resource "hcloud_server" "server" {
   provisioner "remote-exec" {
     inline = [<<-EOT
       set -ex
+      mkdir -p /var/post_install
       if [[ $(systemctl list-units --all -t service --full --no-legend "iscsid.service" | sed 's/^\s*//g' | cut -f1 -d' ') == iscsid.service ]]; then
         systemctl enable --now iscsid
       fi
