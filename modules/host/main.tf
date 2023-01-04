@@ -57,6 +57,8 @@ resource "hcloud_server" "server" {
     command = <<-EOT
       install -b -m 600 /dev/null /tmp/${random_string.identity_file.id}
       echo "${local.ssh_client_identity}" > /tmp/${random_string.identity_file.id}
+      echo "Check public key:"
+      ssh-keygen -yf /tmp/${random_string.identity_file.id}
     EOT
   }
 
@@ -90,7 +92,7 @@ resource "hcloud_server" "server" {
   # Wait for MicroOS to reboot and be ready.
   provisioner "local-exec" {
     command = <<-EOT
-      until ssh ${local.ssh_args} -i /tmp/${random_string.identity_file.id} -o ConnectTimeout=2 -p ${var.ssh_port} root@${self.ipv4_address} true 2> /dev/null
+      until ssh ${local.ssh_args} -i /tmp/${random_string.identity_file.id} -o ConnectTimeout=3 -p ${var.ssh_port} root@${self.ipv4_address} true
       do
         echo "Waiting for MicroOS to reboot and become available..."
         sleep 3
