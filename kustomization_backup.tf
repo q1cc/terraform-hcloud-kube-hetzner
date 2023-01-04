@@ -11,9 +11,9 @@ data "remote_file" "kustomization_backup" {
   depends_on = [null_resource.kustomization]
 }
 
-resource "local_file" "kustomization_backup" {
-  count           = var.create_kustomization ? 1 : 0
-  content         = data.remote_file.kustomization_backup.content
-  filename        = "${var.cluster_name}_kustomization_backup.yaml"
-  file_permission = "600"
-}
+# resource "local_file" "kustomization_backup" {
+#   count           = var.create_kustomization ? 1 : 0
+#   content         = data.remote_file.kustomization_backup.content
+#   filename        = "${var.cluster_name}_kustomization_backup.yaml"
+#   file_permission = "600"
+# }

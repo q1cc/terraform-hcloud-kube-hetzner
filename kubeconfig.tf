@@ -26,9 +26,9 @@ locals {
   }
 }
 
-resource "local_sensitive_file" "kubeconfig" {
-  count           = var.create_kubeconfig ? 1 : 0
-  content         = local.kubeconfig_external
-  filename        = "${var.cluster_name}_kubeconfig.yaml"
-  file_permission = "600"
-}
+# resource "local_sensitive_file" "kubeconfig" {
+#   count           = var.create_kubeconfig ? 1 : 0
+#   content         = local.kubeconfig_external
+#   filename        = "${var.cluster_name}_kubeconfig.yaml"
+#   file_permission = "600"
+# }
