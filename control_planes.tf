@@ -147,7 +147,18 @@ resource "null_resource" "control_planes" {
   }
 
   depends_on = [
-    null_resource.first_control_plane,
     hcloud_network_subnet.control_plane
   ]
+}
+
+resource "null_resource" "all_control_planes" {
+  # Hack to wait for control planes
+  # depends on null_resource.control_planes[*]
+  provisioner "local-exec" {
+    command = <<-EOT
+      %{ for k, v in null_resource.control_planes }
+      echo "Control plane ${k} is up."
+      %{ endfor }
+    EOT
+  }
 }
