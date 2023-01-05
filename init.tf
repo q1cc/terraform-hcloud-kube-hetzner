@@ -72,8 +72,7 @@ resource "null_resource" "first_control_plane" {
   }
 
   depends_on = [
-    hcloud_network_subnet.control_plane,
-    null_resource.all_control_planes
+    hcloud_network_subnet.control_plane
   ]
 }
 
